@@ -1,0 +1,39 @@
+{% extends 'base.html.j2'%}
+{% block title %}
+{{current_user.first_name}}'s Cart
+{% endblock %}
+
+{% block content %}
+<h1>Items in Shopping Cart</h1>
+<hr>
+    {% if cart_items%}
+        {% for item in cart_items %}
+            <div class="card mb-3" style="max-width: 540px;">
+            <div class="row g-0">
+            <div class="col-md-8">
+            <div class="card-body">
+            <h5 class="card-title">{{item.name}} </h5>
+
+            
+
+            <p class="card-text"><small class="text-muted">
+            {{item.description}}
+            <span style="color:purple" class="float-end">
+            Price: {{item.price}}
+            </span>
+            
+            {# <small><a href="{{url_for('', id=item.id)}}">Add to Cart</a></small> #}
+            </small></p>
+            <small><a href="{{url_for('shop.get_item', id=item.id)}}">View Item</a></small>
+            <small><a href="{{url_for('shop.remove_item', id=item.id)}}">Remove</a></small>
+            </div>
+            </div>
+            </div>
+            </div>
+        {%endfor%}
+        <h1>Total: ${{current_user.sum_cart()}}</h1>
+        <small><a href="{{url_for('shop.clear_cart')}}">Clear Cart</a></small>
+    {%else%}
+        <small> Your cart is empty </small>
+    {%endif%}
+{% endblock %}

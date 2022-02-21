@@ -1,0 +1,36 @@
+{% extends 'base.html.j2'%}
+
+<title>
+{% block title %}
+Inventory
+{% endblock %}
+</title>
+
+{% block content %}
+<h1>Here is what we have in Stock</h1>
+<hr>    
+        {% for item in items %}
+            <div class="card mb-3" style="max-width: 540px;">
+            <div class="row g-0">
+            <div class="col-md-8">
+            <div class="card-body">
+            <h5 class="card-title">{{item.name}} </h5>
+
+            
+
+            <p class="card-text"><small class="text-muted">
+            {{item.description}}
+            <span style="color:purple" class="float-end">
+            Price: {{item.price}}
+            </span>
+            {# <small><a href="{{url_for('', id=item.id)}}">Add to Cart</a></small> #}
+            </small></p>
+            <small><a href="{{url_for('shop.get_item', id=item.id)}}">View Item</a></small>
+            <small><a href="{{url_for('shop.add_item', id=item.id)}}">Add Item to Cart</a></small>
+            
+            </div>
+            </div>
+            </div>
+            </div>
+        {%endfor%}
+{% endblock %}
